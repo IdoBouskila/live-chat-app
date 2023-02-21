@@ -1,7 +1,7 @@
 const dotenv = require("dotenv");
 const express = require("express");
 const { Server } = require("socket.io");
-const { handleLogin, sendMessage, handleJoinRoom, handleLeaveRoom, handleDisconnect } = require("./custom-event-handlers.js");
+const { sendMessage, handleJoinRoom, handleLeaveRoom, handleDisconnect, handleConnection } = require("./custom-event-handlers.js");
 
 dotenv.config();
 
@@ -20,7 +20,7 @@ const io = new Server(server, {
 });
 
 io.on('connection', (socket) => {
-    console.log(`user is connected ${ socket.id }`)
+    handleConnection(socket);
     
     socket.on('login', (userName) => {
         handleLogin(socket, userName);
@@ -34,8 +34,8 @@ io.on('connection', (socket) => {
         handleLeaveRoom(socket)
     });
     
-    socket.on('send_message', (text) => {
-        sendMessage(io, text)
+    socket.on('send_message', (data) => {
+        sendMessage(io, socket.id, data);
     });
     
     socket.on('disconnect', () => {
