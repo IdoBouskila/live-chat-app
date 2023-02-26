@@ -5,11 +5,11 @@ import useMessages from '../hooks/useMessages';
 import useChatActions from '../hooks/useChatActions';
 
 const ConversationContainer = styled.div`
-    flex: 1;
-    padding: 20px 0px;
     display: flex;
     flex-direction: column;
     gap: 1vh;
+    flex: 1;
+    padding: 20px 0;
     overflow: auto;
 `;
 
@@ -30,7 +30,6 @@ const MessageContainer = styled.div`
     gap: 20px;
     color: #fff;
     font-size: 1rem;
-    /* overflow: hidden; */
     height: 5.2vh;
     flex-direction: ${ props => props.incomingMessage ? 'row' : 'row-reverse' };
 

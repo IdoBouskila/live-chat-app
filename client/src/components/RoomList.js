@@ -6,6 +6,7 @@ import useDebounce from '../hooks/useDebounce';
 const RoomListContainer = styled.div`
     --space: 1em;
     --horizontal-space: 2vw;
+    
     display: flex;
     flex-direction: column;
     width: 26%;
@@ -26,9 +27,7 @@ const RoomListContainer = styled.div`
 
 const RoomItem = styled.li`
     display: flex;
-    /* align-items: center; */
     gap: 1vw;
-    /* height: 5vw; */
     width: 100%;
     flex: 1;
     padding: var(--space) var(--horizontal-space);
