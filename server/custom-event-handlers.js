@@ -2,7 +2,7 @@ const rooms = {};
 const onlineUsers = {};
 
 exports.handleConnection = (socket) => {
-    onlineUsers[socket.id] = {}
+    onlineUsers[socket.id] = {};
 }
 
 exports.handleJoinRoom = (socket, data) => {
@@ -10,16 +10,16 @@ exports.handleJoinRoom = (socket, data) => {
 
     // Avoid Re-joining the same room
     if(onlineUsers[socket.id]?.room === roomID) {
-        console.log('User is already in the same rooms');
         return;
     }
     
-    leaveRoom(socket);
-    joinRoom(socket, roomID);
+    leaveCurrentRoom(socket);
 
     addParticipantToRoomList(socket, roomID, userName);
-    
+
     associateRoomToUser(socket, roomID);
+
+    socket.join(roomID);
 
     announceUserAction(socket, roomID, 'joined');
 
@@ -27,35 +27,28 @@ exports.handleJoinRoom = (socket, data) => {
 }
 
 exports.handleLeaveRoom = (socket) => {
-    leaveRoom(socket, roomID);
+    leaveCurrentRoom(socket);
 }
 
-exports.sendMessage = (socket, socket_id, { text, roomID, userName = null }) => {
-    if(! roomID) {
-        return;
-    }
+exports.handleSendMessage = (io, data, socket_id = null) => {
+    const { text, roomID, userName } = data;
 
     const formatMessage = {
         author: userName ?? 'BOT',
-        socket_id: socket_id,
+        socket_id: socket_id ?? null,
         text,
         room: roomID,
         time: Date.now()
     }
     
     setTimeout(() => {
-        console.log(formatMessage);
-        socket.to(roomID).emit('receive_message', formatMessage);
+        io.to(roomID).emit('receive_message', formatMessage);
     }, 100)
 }
 
-exports.handleDisconnect = (socket) => {
-    const userInRoom = onlineUsers[socket.id]?.rooms;
-
-    if(userInRoom) {
-        leaveRoom(socket, roomID);
-    }
-
+exports.handleDisconnect = (socket) => {    
+    leaveCurrentRoom(socket);
+    
     delete onlineUsers[socket.id];
 }
 
@@ -72,7 +65,7 @@ const addParticipantToRoomList = (socket, roomID, userName) => {
 }
 
 const associateRoomToUser = (socket, roomID) => {
-   return onlineUsers[socket.id].room = roomID
+   onlineUsers[socket.id].room = roomID
 }
 
 const sendParticipantsStatus = (socket, roomID) => {
@@ -80,7 +73,7 @@ const sendParticipantsStatus = (socket, roomID) => {
     socket.to(roomID).emit('participants_status', room);
 }
 
-const leaveRoom = (socket) => { 
+const leaveCurrentRoom = (socket) => { 
     const roomID = onlineUsers[socket.id].room;
     
     // check if user inside any room
@@ -99,16 +92,9 @@ const removeParticipantFromLists = (socket, roomID) => {
     delete rooms[roomID].participants[socket.id]
 }
 
-const joinRoom = (socket, roomID) => {
-    onlineUsers[socket.id].room = roomID;
-    socket.join(roomID);
-}
-
 const announceUserAction = (socket, roomID, action) => {
-    console.log(rooms);
     const userName = rooms[roomID].participants[socket.id].userName;
     const text =  `${ userName } has ${ action } the chat`;
     
-    console.log(action);
-    this.sendMessage(socket, null, {text, roomID});
+    this.handleSendMessage(socket, { text, roomID });
 }
