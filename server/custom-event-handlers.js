@@ -8,8 +8,9 @@ exports.handleConnection = (socket) => {
 exports.handleJoinRoom = (socket, data) => {
     const { userName, roomID } = data;
 
-    // Avoid Re-joining the same room
-    if(onlineUsers[socket.id]?.room === roomID) {
+    const isAlreadyInRoom = onlineUsers[socket.id]?.room === roomID;
+
+    if(isAlreadyInRoom) {
         return;
     }
     
@@ -41,9 +42,7 @@ exports.handleSendMessage = (io, data, socket_id = null) => {
         time: Date.now()
     }
     
-    setTimeout(() => {
-        io.to(roomID).emit('receive_message', formatMessage);
-    }, 100)
+    io.to(roomID).emit('receive-message', formatMessage);
 }
 
 exports.handleDisconnect = (socket) => {    
@@ -70,7 +69,7 @@ const associateRoomToUser = (socket, roomID) => {
 
 const sendParticipantsStatus = (socket, roomID) => {
     const room = rooms[roomID].participants;
-    socket.to(roomID).emit('participants_status', room);
+    socket.to(roomID).emit('participants-status', room);
 }
 
 const leaveCurrentRoom = (socket) => { 
@@ -84,12 +83,12 @@ const leaveCurrentRoom = (socket) => {
     announceUserAction(socket, roomID, 'left');
     removeParticipantFromLists(socket, roomID);
     
-    socket.leave(roomID)
+    socket.leave(roomID);
 }
 
 const removeParticipantFromLists = (socket, roomID) => {
     delete onlineUsers[socket.id].room;
-    delete rooms[roomID].participants[socket.id]
+    delete rooms[roomID].participants[socket.id];
 }
 
 const announceUserAction = (socket, roomID, action) => {

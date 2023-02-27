@@ -6,12 +6,12 @@ const useMessages = (currentRoom) => {
     const [messages, setMessages] = useState([]);
     
     useEffect(() => {
-        socket.on('receive_message', (newMessage) => {
+        socket.on('receive-message', (newMessage) => {
             setMessages((m) => [...m, newMessage]);
         });
 
         return () => {
-            socket.off('receive_message');
+            socket.off('receive-message');
         }
     }, [socket]);
 

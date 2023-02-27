@@ -23,11 +23,11 @@ io.on('connection', (socket) => {
     handleConnection(socket);
 
     socket.on('join-room', (data) => {
-        handleJoinRoom(socket, data)
+        handleJoinRoom(socket, data);
     });
     
     socket.on('leave-room', () => {
-        handleLeaveRoom(socket)
+        handleLeaveRoom(socket);
     });
 
     socket.on('send-message', (data) => {
