@@ -35,6 +35,7 @@ const ChatForm = () => {
         );
         
         inputRef.current.value = '';
+        inputRef.current.focus();
     }
 
     return (
