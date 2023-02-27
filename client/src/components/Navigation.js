@@ -1,6 +1,6 @@
 import React from 'react';
-import { ImExit } from "react-icons/im"
-import { AiFillHome } from "react-icons/ai"
+import { GiExitDoor } from "react-icons/gi"
+import { AiFillHome, AiFillWechat } from "react-icons/ai"
 import styled from 'styled-components';
 import { ButtonContainer } from '../styled/Button';
 import useChatActions from '../hooks/useChatActions';
@@ -12,11 +12,22 @@ const Nav = styled.nav`
     gap: 20px;
     align-items: center;
     flex-direction: column;
-    padding: 6vh 0;
+    padding: 6vh 5px;
     background: #1a1a1a;
+    
+    & div {
+        justify-content: center;
+        width: 100%;
+    }
+
+    @media (max-width: 820px) {
+        width: 100%;
+        height: 5%;
+        flex-direction: row;
+    }
 `;
 
-const Navigation = () => {
+const Navigation = ({ openRoomNav }) => {
     const { leaveRoom } = useChatActions();
     const { currentRoom, setCurrentRoom } = useChat();
 
@@ -29,14 +40,21 @@ const Navigation = () => {
         <Nav>
             <ButtonContainer active={ true }>
                     <a href="#">
-                        <AiFillHome size={ '73%' } style={{ fill: '#fff' }} />
+                        <AiFillHome size='100%' />
                     </a>
+            </ButtonContainer>
+
+
+            <ButtonContainer device='mobile' onClick={ openRoomNav }>
+                <a href='#'>
+                    <AiFillWechat size='100%' />
+                </a>
             </ButtonContainer>
     
 
             <ButtonContainer onClick={ leaveClickHandler }>
                     <a href="#">
-                        <ImExit size={ '73%' } style={{ fill: '#737373' }}/>
+                        <GiExitDoor size='100%' />
                     </a>
             </ButtonContainer>
 

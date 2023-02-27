@@ -29,7 +29,6 @@ const MessageContainer = styled.div`
     gap: 20px;
     color: #fff;
     font-size: 1rem;
-    height: 5.2vh;
     flex-direction: ${ props => props.incomingMessage ? 'row' : 'row-reverse' };
 
     ${ MessageContent } {
@@ -60,7 +59,7 @@ const UserProfile = styled.div`
 const BotMessage = styled.div`
     width: fit-content;
     margin: 0 auto;
-    padding: 0.5vw 1vw;
+    padding: 0.85em 1.7em;
     font-size: 0.7em;
     text-align: center;
     border-radius: 2em;

@@ -1,25 +1,36 @@
 import styled from "styled-components";
 
 export const ButtonContainer = styled.div`
-    display: flex;
+    display: ${ props => props.device === 'mobile' ? 'none' : 'flex'};
     flex: ${ props => props.flex ? props.flex : '1'};
     align-items: flex-end;
+
+    @media (max-width: 820px) {
+        display: flex;
+    }
 
     & a, button { 
         display: grid;
         place-items: center;
-        padding: ${ props => props.padding ? props.padding : '0.82vw'};
-        width: ${ props => props.size ? props.size : '3.3vw'};
-        height: ${ props => props.size ? props.size : '3.3vw'};
+        padding: ${ props => props.padding ? props.padding : '1.2em'};
+        width: ${ props => props.size ? props.size : '3.9em'};
+        height: auto;
         border: none;
-        border-radius: ${ props => props.borderRadius ? props.borderRadius : '1.2vw'};
+        border-radius: ${ props => props.borderRadius ? props.borderRadius : '1.4em'};
         background: ${ props => props.active ? 'var(--blue-active-color)' : 'var(--secondry-color-dark-palette)' };
-        box-shadow: ${ props => props.active ? 'rgba(32, 112, 198, 0.7) 0 0 10px' : 0 };
+        box-shadow: ${ props => props.active ? 'rgba(32, 112, 198, 0.7) 0 0 10px' : null };
+        aspect-ratio: 1/1;
         transition: .3s ease-in-out all;
         cursor: pointer;
+
+
+        @media (max-width: 820px) {
+            padding: 0.7em;
+        }
     }
     
     & svg {
+        fill: ${ props => props.active ? '#fff' : '#737373'};
         transition: .3s ease-in-out all;
     }
     
@@ -30,6 +41,6 @@ export const ButtonContainer = styled.div`
     }
 
     & a:hover svg {
-        fill: #fff !important;
+        fill: #fff;
     }
 `;

@@ -6,6 +6,7 @@ import Conversation from './Conversation';
 import Navigation from './Navigation';
 import SearchRooms from './SearchRooms';
 import { useChat } from '../context/ChatProvider';
+import { Description } from '../styled/Description';
 
 const ChatAppContainer = styled.div`
     --vertical-padding: 3vh;
@@ -21,6 +22,15 @@ const ChatAppContainer = styled.div`
                 rgba(0, 0, 0, 0.12) 0px 4px 6px,
                 rgba(0, 0, 0, 0.17) 0px 12px 13px,
                 rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+    @media (max-width: 820px) {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        flex-direction: column-reverse;
+        font-size: 0.85rem;
+        gap: 0;
+    }
 `;
 
 const CenterContainer = styled.div`
@@ -42,6 +52,10 @@ const Chat = styled.div`
     height: 80%;
     background: #fff;
     border-radius: 30px;
+
+    @media (max-width: 820px) {
+        margin: 0 2.5vw;
+    }
 `;
 
 const Header = styled.header`
@@ -61,9 +75,6 @@ const Header = styled.header`
         font-size: 0.85em;
         font-weight: 600;
     }
-    & p {
-        font-size: 0.75em;
-    }
 `;
 
 const WelcomeMessage = styled.p`
@@ -75,11 +86,12 @@ const WelcomeMessage = styled.p`
 
 const ChatContainer = () => {
     const [query, setQuery] = useState('');
+    const [isNavOpen, setIsNavOpen] = useState();
     const { currentRoom } = useChat();
 
     return (
         <ChatAppContainer>
-            <Navigation />
+            <Navigation openRoomNav={ () => setIsNavOpen(true) } />
 
             <CenterContainer>
                 <SearchRooms query={ query } setQuery={ setQuery } />
@@ -96,7 +108,7 @@ const ChatContainer = () => {
 
                                 <div>
                                     <h2>{ currentRoom.name }</h2>
-                                    <p>{ currentRoom.description }</p>
+                                    <Description color='#000' size='0.75em'>{ currentRoom.description }</Description>
                                 </div>
                             </Header>
                             
@@ -109,7 +121,11 @@ const ChatContainer = () => {
                 </Chat>
             </CenterContainer>
 
-            <RoomList query={ query } />
+            <RoomList 
+                query={ query }
+                isNavOpen={ isNavOpen }
+                setIsNavOpen={ setIsNavOpen }
+            />
         </ChatAppContainer>
     );
 };

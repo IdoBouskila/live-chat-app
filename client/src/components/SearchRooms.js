@@ -15,6 +15,10 @@ const SearchRoomsContainer = styled.div`
         background: transparent;
         border: none;
     }
+
+    @media (max-width: 820px) {
+        display: none;
+    }
 `;
 
 const SearchRooms = ({ query, setQuery }) => { 

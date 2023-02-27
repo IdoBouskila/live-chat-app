@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useChat } from '../context/ChatProvider';
 import useChatActions from '../hooks/useChatActions';
 import useDebounce from '../hooks/useDebounce';
+import { Description } from '../styled/Description';
 
 const RoomListContainer = styled.div`
     --space: 1em;
@@ -23,6 +24,16 @@ const RoomListContainer = styled.div`
         font-size: 1.2em;
         font-weight: 500;
         padding: 0.9em var(--horizontal-space);
+    }
+
+    @media (max-width: 820px) {
+        position: absolute;
+        opacity: ${ props => props.open ? '1' : '0'};
+        pointer-events: ${ props => props.open ? 'null' : 'none'};
+        right: 0;
+        width: 100%;
+        border-radius: 0;
+        z-index: 1;
     }
 `;
 
@@ -57,16 +68,6 @@ const RoomItem = styled.li`
     & span {
         font-weight: 500;
         font-size: 0.8em;
-    }
-
-    & p {
-        display: -webkit-box;
-        font-size: 0.7em;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        color: rgba(254, 254, 254, 0.5);
     }
 `;
 
@@ -123,7 +124,7 @@ const rooms = [
     }
 ];
 
-const RoomList = ({ query }) => {
+const RoomList = ({ query, isNavOpen, setIsNavOpen }) => {
     const debouncedSearch = useDebounce(query, 350);
     const { joinRoom } = useChatActions();
     const { currentRoom, setCurrentRoom, userName } = useChat();
@@ -142,7 +143,7 @@ const RoomList = ({ query }) => {
         });
 
         return filter;
-    }, [rooms, debouncedSearch]);
+    }, [debouncedSearch]);
 
     const handleRoomClick = (roomID) => {
         if(currentRoom?.id === roomID) {
@@ -153,11 +154,13 @@ const RoomList = ({ query }) => {
         setCurrentRoom(selectedRoom);
 
         joinRoom({ roomID, userName });
+
+        setIsNavOpen(false);
     }
     
 
     return (
-        <RoomListContainer>
+        <RoomListContainer open={ isNavOpen }>
             <h3>Rooms</h3>
 
             <ul>
@@ -172,7 +175,7 @@ const RoomList = ({ query }) => {
 
                                 <div>
                                     <span>{ name }</span>
-                                    <p>{ description }</p>
+                                    <Description color='rgba(254,254,254,0.5)' size='0.7em'>{ description }</Description>
                                 </div>
                             </RoomItem>
                         );
