@@ -47,6 +47,13 @@ z-index: -1;
   &::after {
     inset: auto -170px -200px auto;
   }
+
+  @media (max-width: 820px) {
+    &::before, &::after {
+      width: 25rem;
+      height: 25rem;
+    }
+  }
 `;
 
 function App() {
