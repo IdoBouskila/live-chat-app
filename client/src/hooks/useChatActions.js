@@ -1,7 +1,7 @@
-import { useSocket } from "../context/SocketProvider";
+import { useChat } from "../context/ChatProvider";
 
 const useChatActions = () => {
-    const socket = useSocket();
+    const { socket } = useChat();
 
     const joinRoom = (roomID) => {
         socket.emit('join-room', roomID);

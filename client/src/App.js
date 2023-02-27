@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import Login from './components/Login';
-import ChatContainer from './components/ChatContainer';
-import { SocketProvider } from './context/SocketProvider';
+import { ChatProvider } from './context/ChatProvider';
+import Wrapper from './components/Wrapper';
 
 const GlobalStyle = createGlobalStyle`
   :root {
@@ -50,31 +49,17 @@ z-index: -1;
   }
 `;
 
-const Wrapper = styled.div`
-  display: grid;
-  height: 100vh;
-  place-items: center;
-`;
-
 function App() {
-  const [userName, setUserName] = useState('');
-
   return (
-    <SocketProvider>
+    <>
       <GlobalStyle />
-
-      <Background />
       
-      <Wrapper>
-        {
-          ! userName
-          ?
-            <Login setUserName={ setUserName }/>
-          :
-            <ChatContainer userName={ userName } />
-        }
-      </Wrapper>
-    </SocketProvider>
+      <Background />
+
+      <ChatProvider>  
+        <Wrapper />
+      </ChatProvider>
+    </>
   );
 }
 

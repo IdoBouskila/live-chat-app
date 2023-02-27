@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { IoIosSend } from 'react-icons/io'
 import { ButtonContainer } from '../styled/Button';
 import useChatActions from '../hooks/useChatActions';
+import { useChat } from '../context/ChatProvider';
 
 const MessageForm = styled.form`
     padding: 0.5vw 0;
@@ -19,19 +20,25 @@ const MessageForm = styled.form`
     }
 `;
 
-const ChatForm = ({ currentRoom, userName }) => {
+const ChatForm = () => {
     const inputRef = useRef(null);
     const { sendMessage } = useChatActions();
+    const { currentRoom, userName } = useChat();
 
-    const sendMessageHandler = (e, text) => {
+    const onSubmit = (e) => {
         e.preventDefault();
 
+        sendMessage(
+            inputRef.current.value, 
+            currentRoom.id, 
+            userName
+        );
+        
         inputRef.current.value = '';
-        sendMessage(text, currentRoom.id, userName);
     }
 
     return (
-        <MessageForm onSubmit={ (e) => sendMessageHandler(e, inputRef.current.value) }>
+        <MessageForm onSubmit={ onSubmit }>
             <input type="text" placeholder='Type a message here' ref={ inputRef }/>
             
             <ButtonContainer flex="0" padding="0" active={ true } size="2.2em" borderRadius="50%">

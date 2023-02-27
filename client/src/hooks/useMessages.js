@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useSocket } from "../context/SocketProvider";
+import { useChat } from "../context/ChatProvider";
 
 const useMessages = (currentRoom) => {
-    const socket = useSocket();
+    const { socket } = useChat();
     const [messages, setMessages] = useState([]);
     
     useEffect(() => {

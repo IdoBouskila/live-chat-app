@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { getFirstLetter } from '../helpers';
 import useMessages from '../hooks/useMessages';
 import useChatActions from '../hooks/useChatActions';
+import { useChat } from '../context/ChatProvider';
 
 const ConversationContainer = styled.div`
     display: flex;
@@ -47,7 +48,7 @@ const UserProfile = styled.div`
     height: 100%;
 
     &::before {
-        content: '${props => props.content}';
+        content: '${props => getFirstLetter(props.content) }';
         display: grid;
         place-content: center;
         padding: 0.5em;
@@ -67,15 +68,16 @@ const BotMessage = styled.div`
     background: rgba(0,0,0,0.05);
 `;
 
-const Conversation = ({ currentRoom }) => {
-    const chatConversation = useRef(null);
-    const messages = useMessages(currentRoom);
+const Conversation = () => {
+    const { currentRoom } = useChat();
     const { socketID } = useChatActions();
+    const messages = useMessages(currentRoom);
+    const chatConversation = useRef(null);
     
     // auto scroll to bottom on new message recieve / sent
     useEffect(() => {
         chatConversation.current.scrollTo(0, chatConversation.current.offsetHeight)    
-    }, [messages])
+    }, [messages]);
 
     return (
         <ConversationContainer ref={ chatConversation }>
@@ -85,12 +87,12 @@ const Conversation = ({ currentRoom }) => {
 
                     const isBot = (author === 'BOT' && ! socket_id);
                     
-                    return isBot ? 
+                    return isBot ?
                         <BotMessage> { text } </BotMessage>
                     :
                     (
                         <MessageContainer incomingMessage={ socket_id !== socketID() }>
-                            <UserProfile content={ getFirstLetter(author) } />
+                            <UserProfile content={ author } />
                             <MessageContent>{ text }</MessageContent>
                         </MessageContainer>
                     );

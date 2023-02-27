@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { AiOutlineArrowRight } from "react-icons/ai";
+import { useChat } from '../context/ChatProvider';
 
 const LoginContainer = styled.form`
     display: flex;
@@ -29,8 +30,9 @@ const LoginContainer = styled.form`
 `;
 
 const Input = styled.input.attrs(props => ({
-    type: 'text'
-}))`
+        type: 'text'
+    }))`
+
     width: 100%;
     border: none;
     background: transparent;
@@ -42,17 +44,18 @@ const Input = styled.input.attrs(props => ({
     }
 `;
 
-const Login = ({ setUserName }) => {
+const Login = () => {
     const inputRef = useRef(null);
+    const { setUserName } = useChat();
 
-    function handleLogin(e) {
+    function handleSubmit(e) {
         e.preventDefault();
         
         setUserName(inputRef.current.value);
     }
 
     return (
-        <LoginContainer onSubmit={ handleLogin }>
+        <LoginContainer onSubmit={ handleSubmit }>
             <Input type="text" placeholder="Enter a username" ref={ inputRef } />
             
             <button>
