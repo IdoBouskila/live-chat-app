@@ -19,10 +19,17 @@ export const ButtonContainer = styled.div`
         cursor: pointer;
     }
     
-    & button, a:hover {
+    & svg {
+        transition: .3s ease-in-out all;
+    }
+    
+    & button:hover, a:hover {
         background: var(--blue-active-color);
-        
         box-shadow: rgba(32, 112, 198, 0.7) 0 0 10px;
         opacity: 0.8;
+    }
+
+    & a:hover svg {
+        fill: #fff !important;
     }
 `;
