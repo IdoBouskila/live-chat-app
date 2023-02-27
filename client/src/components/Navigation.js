@@ -3,6 +3,8 @@ import { ImExit } from "react-icons/im"
 import { AiFillHome } from "react-icons/ai"
 import styled from 'styled-components';
 import { ButtonContainer } from '../styled/Button';
+import useChatActions from '../hooks/useChatActions';
+import { useChat } from '../context/ChatProvider';
 
 const Nav = styled.nav`
     display: flex;
@@ -15,6 +17,14 @@ const Nav = styled.nav`
 `;
 
 const Navigation = () => {
+    const { leaveRoom } = useChatActions();
+    const { currentRoom, setCurrentRoom } = useChat();
+
+    const leaveClickHandler = () => {
+        setCurrentRoom(null);
+        leaveRoom(currentRoom.id);
+    }
+
     return (
         <Nav>
             <ButtonContainer active={ true }>
@@ -24,7 +34,7 @@ const Navigation = () => {
             </ButtonContainer>
     
 
-            <ButtonContainer>
+            <ButtonContainer onClick={ leaveClickHandler }>
                     <a href="#">
                         <ImExit size={ '73%' } style={{ fill: '#737373' }}/>
                     </a>
