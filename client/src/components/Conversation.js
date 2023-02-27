@@ -22,8 +22,6 @@ const MessageContent = styled.div`
     width: fit-content;
     height: fit-content;
     word-break: break-all;
-    border-radius: 8px;
-    border-top-left-radius: 0;
 `;
 
 const MessageContainer = styled.div`
@@ -39,6 +37,7 @@ const MessageContainer = styled.div`
         border: ${ props => props.incomingMessage ? 'none' : '1px solid rgba(0, 0, 0, 0.1)' };
         color: ${ props => props.incomingMessage ? '#fff' : '#000' };
         box-shadow:  ${ props => props.incomingMessage ? 'rgba(32, 112, 198, 0.4)' : 'rgba(0, 0, 0, 0.15)'} 2px 3px 15px;
+        border-radius: ${ props => props.incomingMessage ? '0 8px 8px 8px' : '8px 0 8px 8px' };
     }
 `;
 
