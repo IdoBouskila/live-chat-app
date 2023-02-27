@@ -29,8 +29,9 @@ io.on('connection', (socket) => {
     socket.on('leave-room', () => {
         handleLeaveRoom(socket)
     });
-    
-    socket.on('send_message', (data) => {
+
+    // TODO: Change to kebab-case
+    socket.on('send-message', (data) => {
         handleSendMessage(io, data, socket.id);
     });
     
