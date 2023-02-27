@@ -16,7 +16,7 @@ const useChatActions = () => {
             return;
         }
                 
-        socket.emit('send_message', { text, roomID, userName });
+        socket.emit('send-message', { text, roomID, userName });
     }
 
     const socketID = () => socket.id;
