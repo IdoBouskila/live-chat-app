@@ -26,7 +26,7 @@ const ChatAppContainer = styled.div`
     @media (max-width: 820px) {
         position: relative;
         width: 100%;
-        height: 100%;
+        height: 100vh;
         flex-direction: column-reverse;
         font-size: 0.85rem;
         gap: 0;
@@ -41,6 +41,10 @@ const CenterContainer = styled.div`
     height: 100%;
     margin: auto 0;
     padding: 3vw 1vw;
+
+    @media (max-width: 820px) {
+        height: 80%;
+    }
     
 `;
 
