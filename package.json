@@ -1,0 +1,21 @@
+{
+  "name": "live-chat-app",
+  "version": "1.0.0",
+  "description": "A Real-Time Chat that allows users to join chat rooms and communicate with each other instantly.\r <br>\r built using Node.js & Socket.IO & React, and Styled-Components.",
+  "main": "index.js",
+  "scripts": {
+    "build:client": "npm run install:client && cd client && npm run build && mkdir -p ../server/public && cp -r build/* ../server/public",
+    "build:server": "npm run install:server",
+    "build": "npm run build:client && npm run build:server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IdoBouskila/live-chat-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IdoBouskila/live-chat-app/issues"
+  },
+  "homepage": "https://github.com/IdoBouskila/live-chat-app#readme"
+}
