@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { getFirstLetter } from '../helpers';
 import useMessages from '../hooks/useMessages';
 import useChatActions from '../hooks/useChatActions';
-import { useChat } from '../context/ChatProvider';
 
 const ConversationContainer = styled.div`
     display: flex;
