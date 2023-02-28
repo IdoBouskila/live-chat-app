@@ -42,6 +42,10 @@ const Input = styled.input.attrs(props => ({
         color: #7b7b7b;
         font-size: 1em;
     }
+
+    @media (max-width: 820px) {
+        font-size: 0.7em;
+    }
 `;
 
 const Login = () => {
