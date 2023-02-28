@@ -21,7 +21,6 @@ const MessageContent = styled.div`
     padding: 0.8em 1em;
     width: fit-content;
     height: fit-content;
-    word-break: break-all;
 `;
 
 const MessageContainer = styled.div`
