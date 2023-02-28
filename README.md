@@ -2,7 +2,7 @@
 
 A Real-Time Chat that allows users to join chat rooms and communicate with each other instantly.
 <br>
-built using Node.js & Socket.IO & React, and Styled-Components.
+Built using Node.js & Socket.IO & React, and Styled-Components.
 
 ## Preview
 
@@ -26,7 +26,7 @@ To use this application, follow these steps:
 
 1. Clone the repository to your local machine
 2. Navigate to the server directory and run `npm install` to install the server-side dependencies
-3. Run `node server.js` or `node --watch server.js` (node v18.11.0 +) to start the server
+3. Run `node server.js` or `npm start` or `node --watch server.js` (node v18.11.0 +) to start the server
 4. Navigate to the client directory and run `npm install` to install the client-side dependencies
 5. Run `npm start` to start the client application
 
