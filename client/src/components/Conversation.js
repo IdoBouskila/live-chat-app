@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { getFirstLetter } from '../helpers';
 import useMessages from '../hooks/useMessages';
-import useChatActions from '../hooks/useChatActions';
+import { useChat } from '../context/ChatProvider';
 
 const ConversationContainer = styled.div`
     display: flex;
@@ -65,7 +65,7 @@ const BotMessage = styled.div`
 `;
 
 const Conversation = () => {
-    const { socketID } = useChatActions();
+    const { socket } = useChat();
     const messages = useMessages();
     const chatConversation = useRef(null);
     
@@ -86,7 +86,7 @@ const Conversation = () => {
                         <BotMessage> { text } </BotMessage>
                     :
                     (
-                        <MessageContainer key={ id } incomingMessage={ socket_id !== socketID() }>
+                        <MessageContainer key={ id } incomingMessage={ socket_id !== socket.id }>
                             <UserProfile content={ author } />
                             <MessageContent>{ text }</MessageContent>
                         </MessageContainer>
