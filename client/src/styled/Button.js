@@ -12,6 +12,7 @@ export const ButtonContainer = styled.div`
     & a, button { 
         display: grid;
         place-items: center;
+        place-content: center;
         padding: ${ props => props.padding ? props.padding : '1.2em'};
         width: ${ props => props.size ? props.size : '3.9em'};
         height: auto;
