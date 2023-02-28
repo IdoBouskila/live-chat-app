@@ -67,9 +67,8 @@ const BotMessage = styled.div`
 `;
 
 const Conversation = () => {
-    const { currentRoom } = useChat();
     const { socketID } = useChatActions();
-    const messages = useMessages(currentRoom);
+    const messages = useMessages();
     const chatConversation = useRef(null);
     
     // auto scroll to bottom on new message recieve / sent
@@ -81,7 +80,7 @@ const Conversation = () => {
         <ConversationContainer ref={ chatConversation }>
             {
                 messages.map((m) => {
-                    const { text, author, socket_id} = m;
+                    const { text, author, socket_id, id } = m;
 
                     const isBot = (author === 'BOT' && ! socket_id);
                     
@@ -89,7 +88,7 @@ const Conversation = () => {
                         <BotMessage> { text } </BotMessage>
                     :
                     (
-                        <MessageContainer incomingMessage={ socket_id !== socketID() }>
+                        <MessageContainer key={ id } incomingMessage={ socket_id !== socketID() }>
                             <UserProfile content={ author } />
                             <MessageContent>{ text }</MessageContent>
                         </MessageContainer>

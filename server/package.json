@@ -2,7 +2,8 @@
   "dependencies": {
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "socket.io": "^4.6.0"
+    "socket.io": "^4.6.0",
+    "uuid": "^9.0.0"
   },
   "scripts": {
     "start": "node --watch server.js"

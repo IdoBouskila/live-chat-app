@@ -1,3 +1,5 @@
+const { v4: uuidv4 } = require('uuid');
+
 const rooms = {};
 const onlineUsers = {};
 
@@ -35,6 +37,7 @@ exports.handleSendMessage = (io, data, socket_id = null) => {
     const { text, roomID, userName } = data;
 
     const formatMessage = {
+        id: uuidv4(),
         author: userName ?? 'BOT',
         socket_id: socket_id ?? null,
         text,
