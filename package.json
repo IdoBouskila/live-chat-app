@@ -4,6 +4,7 @@
   "description": "A Real-Time Chat that allows users to join chat rooms and communicate with each other instantly.\r <br>\r built using Node.js & Socket.IO & React, and Styled-Components.",
   "main": "index.js",
   "scripts": {
+    "server": "cd server && npm start",
     "build:client": "npm run install:client && cd client && npm run build && mkdir -p ../server/public && cp -r build/* ../server/public",
     "build:server": "npm run install:server",
     "build": "npm run build:client && npm run build:server"
