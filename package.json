@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "server": "cd server && npm start",
+    "install:client": "cd client && npm install",
+    "install:server": "cd server && npm install",
     "build:client": "npm run install:client && cd client && npm run build && mkdir -p ../server/public && cp -r build/* ../server/public",
     "build:server": "npm run install:server",
     "build": "npm run build:client && npm run build:server"
