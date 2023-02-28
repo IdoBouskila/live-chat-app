@@ -71,7 +71,7 @@ const Conversation = () => {
     
     // auto scroll to bottom on new message recieve / sent
     useEffect(() => {
-        chatConversation.current.scrollTo(0, chatConversation.current.offsetHeight)    
+        chatConversation.current.scrollTo(0, chatConversation.current.scrollHeight);    
     }, [messages]);
 
     return (
