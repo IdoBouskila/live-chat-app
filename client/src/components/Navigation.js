@@ -8,7 +8,7 @@ import { useChat } from '../context/ChatProvider';
 
 const Nav = styled.nav`
     display: flex;
-    width: 7%;
+    width: 6.75em;
     gap: 20px;
     align-items: center;
     flex-direction: column;

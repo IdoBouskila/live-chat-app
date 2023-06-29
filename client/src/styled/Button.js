@@ -10,12 +10,12 @@ export const ButtonContainer = styled.div`
     }
 
     & a, button { 
-        display: grid;
-        place-items: center;
-        place-content: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         padding: ${ props => props.padding ? props.padding : '1.2em'};
         width: ${ props => props.size ? props.size : '3.9em'};
-        height: auto;
+        height: ${ props => props.size ? 'auto' : '3.9em'};
         border: none;
         border-radius: ${ props => props.borderRadius ? props.borderRadius : '1.4em'};
         background: ${ props => props.active ? 'var(--blue-active-color)' : 'var(--secondry-color-dark-palette)' };
